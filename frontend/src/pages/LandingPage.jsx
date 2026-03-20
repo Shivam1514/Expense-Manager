@@ -17,7 +17,7 @@ const LandingPage = () => {
         />
         <link
           rel="canonical"
-          href="https://expensemanager-f4ck.onrender.com/"
+          href="https://expense-manager-2-1q97.onrender.com/"
         />
       </Helmet>
 

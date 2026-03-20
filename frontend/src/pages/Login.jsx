@@ -82,7 +82,7 @@ const Login = () => {
           property="og:image"
           content="https://expensemanager-f4ck.onrender.com/Logo_expense_manager.png"
         />
-        <meta property="og:url" content="https://expensemanager-f4ck.onrender.com/login" />
+        <meta property="og:url" content="https://expense-manager-2-1q97.onrender.com/login" />
         <meta property="og:type" content="website" />
 
         {/* Twitter Card */}
@@ -105,7 +105,7 @@ const Login = () => {
             name: "Expense Manager",
             operatingSystem: "Web",
             applicationCategory: "FinanceApplication",
-            url: "https://expensemanager-f4ck.onrender.com/login",
+            url: "https://expense-manager-2-1q97.onrender.com/login",
             description:
               "Login to your Expense Manager account to track, manage, and analyze your personal expenses securely.",
             image: "https://expensemanager-f4ck.onrender.com/Logo_expense_manager.png",

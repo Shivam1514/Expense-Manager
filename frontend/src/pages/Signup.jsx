@@ -102,7 +102,7 @@ const Signup = () => {
         />
         <meta
           property="og:url"
-          content="https://expensemanager-f4ck.onrender.com/signup"
+          content="https://expense-manager-2-1q97.onrender.com/signup"
         />
         <meta property="og:type" content="website" />
 
@@ -126,7 +126,7 @@ const Signup = () => {
             name: "Expense Manager",
             operatingSystem: "Web",
             applicationCategory: "FinanceApplication",
-            url: "https://expensemanager-f4ck.onrender.com/signup",
+            url: "https://expense-manager-2-1q97.onrender.com/signup",
             description:
               "Create an account on Expense Manager to track, manage, and analyze your personal expenses securely.",
             image:

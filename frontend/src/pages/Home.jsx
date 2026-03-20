@@ -83,7 +83,7 @@ const Home = () => {
             name: "Expense Manager",
             operatingSystem: "Web",
             applicationCategory: "FinanceApplication",
-            url: "https://expensemanager-f4ck.onrender.com/",
+            url: "https://expense-manager-2-1q97.onrender.com/",
             description:
               "Track and analyze your personal expenses with a simple online expense manager. Export data as CSV for deeper analysis.",
             image:

@@ -137,7 +137,7 @@ const AddExpense = () => {
       content="Add a new personal expense in Expense Manager. Track your spending by entering details such as title, amount, category, note, and date."
     />
     <meta property="og:image" content="https://expensemanager-f4ck.onrender.com/Logo_expense_manager.png" />
-    <meta property="og:url" content="https://expensemanager-f4ck.onrender.com/addexpense" />
+    <meta property="og:url" content="https://expense-manager-2-1q97.onrender.com/addexpense" />
     <meta property="og:type" content="website" />
 
     {/* Twitter Card */}
@@ -157,7 +157,7 @@ const AddExpense = () => {
         name: "Expense Manager",
         operatingSystem: "Web",
         applicationCategory: "FinanceApplication",
-        url: "https://expensemanager-f4ck.onrender.com/addexpense",
+        url: "https://expense-manager-2-1q97.onrender.com/addexpense",
         description:
           "Add a new personal expense in Expense Manager. Track your spending by entering details such as title, amount, category, note, and date.",
         image: "https://expensemanager-f4ck.onrender.com//Logo_expense_manager.png",

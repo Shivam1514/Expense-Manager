@@ -164,7 +164,7 @@ const Expenses = () => {
         />
         <meta
           property="og:url"
-          content="https://expensemanager-f4ck.onrender.com/expenses"
+          content="https://expense-manager-2-1q97.onrender.com/expenses"
         />
         <meta property="og:type" content="website" />
         {/* Twitter Card */}
