@@ -2,6 +2,7 @@ import express, { json } from "express";
 import dotenv from "dotenv";
 import authRoutes from "../src/routes/auth.route.js";
 import expenseRoutes from "../src/routes/expense.route.js";
+import chatRoutes from "../src/routes/chat.route.js";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -23,6 +24,7 @@ const __dirname = path.resolve();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/expense", expenseRoutes);
+app.use("/api/chat", chatRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const distPath = path.join(__dirname, "../frontend/dist");

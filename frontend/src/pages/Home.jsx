@@ -9,6 +9,7 @@ import CategoryExpensePie from "../components/charts/CategoryExpenseChart";
 import BudgetTracker from "../components/BudgetTracker";
 import TodayExpense from "../components/TodayExpense";
 import { Helmet } from "react-helmet"; // ✅ Import Helmet
+import Chatbot from "../components/Chatbot";
 
 const Home = () => {
   const { getExpenses, expenses, gettingExpenses } = useExpenseStore();
@@ -157,6 +158,7 @@ const Home = () => {
           <TodayExpense />
         </div>
       </div>
+      <Chatbot />
     </>
   );
 };
