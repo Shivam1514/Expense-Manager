@@ -6,6 +6,7 @@ import { useAuthStore } from "./useAuthStore";
 export const useExpenseStore = create((set) => ({
   expenses: [],
   addingExpense: false,
+  addingBulkExpenses: false,
   gettingExpenses: false,
   isDeletingExpense: false,
   isEditingExpense: false,
@@ -26,6 +27,25 @@ export const useExpenseStore = create((set) => ({
       toast.error(error.response?.data?.message);
     } finally {
       set({ addingExpense: false });
+    }
+  },
+
+  addBulkExpenses: async (data) => {
+    set({ addingBulkExpenses: true });
+    try {
+      const res = await axiosInstance.post("/expense/addBulkExpenses", { expenses: data });
+      const insertedExpenses = res.data.expenses;
+
+      set((state) => ({
+        expenses: [...insertedExpenses, ...state.expenses],
+      }));
+      toast.success(res.data.message || "Expenses added successfully");
+      return res.data;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error adding bulk expenses");
+      return null;
+    } finally {
+      set({ addingBulkExpenses: false });
     }
   },
 

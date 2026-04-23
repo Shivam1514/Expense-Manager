@@ -3,9 +3,10 @@ import { useExpenseStore } from "../store/useExpenseStore";
 import { Check, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet"; // ✅ Import at the top
+import * as XLSX from "xlsx";
 
 const AddExpense = () => {
-  const { addExpense, addingExpense, deleteExpense } = useExpenseStore();
+  const { addExpense, addingExpense, deleteExpense, addingBulkExpenses } = useExpenseStore();
   const [formData, setFormData] = useState({
     title: "",
     amount: "",
@@ -13,6 +14,39 @@ const AddExpense = () => {
     category: "",
     date: new Date().toISOString().split("T")[0],
   });
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const json = XLSX.utils.sheet_to_json(worksheet);
+
+        const mappedExpenses = json.map((row) => ({
+          title: row.Title || row.title || "",
+          amount: row.Amount || row.amount || 0,
+          note: row.Note || row.note || "",
+          category: row.Category || row.category || "Other",
+          date: row.Date || row.date || new Date().toISOString().split("T")[0],
+        }));
+
+        const result = await useExpenseStore.getState().addBulkExpenses(mappedExpenses);
+        if (result) {
+          e.target.value = null; // reset input
+        }
+      } catch (error) {
+        toast.error("Error parsing Excel file");
+        console.error(error);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -170,9 +204,24 @@ const AddExpense = () => {
     <div className="min-h-[calc(100vh-60px)] flex items-center justify-center bg-linear-to-br from-base-100 to-base-200 px-4">
       <div className="card w-full max-w-md bg-base-100 shadow-xl border border-base-300">
         <form onSubmit={handleSubmit} className="card-body gap-4">
-          <h2 className="text-2xl font-bold text-center text-primary">
-            Add Expense
-          </h2>
+          <div className="flex justify-between items-center w-full">
+            <h2 className="text-2xl font-bold text-primary">
+              Add Expense
+            </h2>
+            <div>
+              <label htmlFor="bulkUpload" className="btn btn-outline btn-sm btn-secondary cursor-pointer">
+                {addingBulkExpenses ? <Loader2 className="animate-spin h-4 w-4" /> : "Upload Excel"}
+              </label>
+              <input
+                id="bulkUpload"
+                type="file"
+                accept=".xlsx, .xls, .csv"
+                className="hidden"
+                onChange={handleFileUpload}
+                disabled={addingBulkExpenses}
+              />
+            </div>
+          </div>
           <label htmlFor="title" className="sr-only" />
 
           <input

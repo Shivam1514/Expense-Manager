@@ -6,11 +6,13 @@ import {
   getExpenses,
   updateBudget,
   updateExpense,
+  addBulkExpenses,
 } from "../controllers/expense.controllers.js";
 
 const router = express.Router();
 
 router.post("/addExpense", protectedRoute, addExpense);
+router.post("/addBulkExpenses", protectedRoute, addBulkExpenses);
 router.get("/getExpenses", protectedRoute, getExpenses);
 router.delete("/deleteExpense/:id", protectedRoute, deleteExpense);
 router.patch("/updateExpense/:id", protectedRoute, updateExpense);

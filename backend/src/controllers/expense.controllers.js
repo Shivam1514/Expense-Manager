@@ -136,3 +136,61 @@ export const updateBudget = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const addBulkExpenses = async (req, res) => {
+  const userId = req.user._id;
+  const { expenses } = req.body;
+
+  if (!Array.isArray(expenses) || expenses.length === 0) {
+    return res.status(400).json({ message: "Expenses array is required and cannot be empty" });
+  }
+
+  try {
+    const validExpenses = [];
+    const errors = [];
+
+    expenses.forEach((expense, index) => {
+      const { title, amount, note, category, date } = expense;
+
+      if (!title || title.trim().length === 0) {
+        errors.push(`Row ${index + 1}: Title is required`);
+        return;
+      }
+      if (!amount || Number(amount) <= 0) {
+        errors.push(`Row ${index + 1}: Invalid Amount`);
+        return;
+      }
+
+      let validCategory = "Other";
+      if (category && EXPENSE_CATEGORIES.includes(category.trim())) {
+        validCategory = category.trim();
+      }
+
+      const expenseDate = date ? new Date(date).toISOString() : new Date().toISOString();
+
+      validExpenses.push({
+        userId,
+        title: title.trim(),
+        amount: Number(amount),
+        note: note?.trim(),
+        category: validCategory,
+        date: expenseDate,
+      });
+    });
+
+    if (validExpenses.length > 0) {
+      const insertedExpenses = await Expense.insertMany(validExpenses);
+      return res.status(201).json({
+        message: `Successfully added ${insertedExpenses.length} expenses`,
+        inserted: insertedExpenses.length,
+        errors,
+        expenses: insertedExpenses
+      });
+    } else {
+      return res.status(400).json({ message: "No valid expenses found to add", errors });
+    }
+  } catch (error) {
+    console.error("Bulk Add Expense Error:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
