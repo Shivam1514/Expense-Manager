@@ -44,7 +44,7 @@ export const useAuthStore = create((set) => ({
       set({ authUser: res.data });
       toast.success("Sign in Successfull");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "An error occurred during login");
     } finally {
       set({ isLoggingIn: false });
     }
@@ -56,7 +56,7 @@ export const useAuthStore = create((set) => ({
       const res=await axiosInstance.get("/auth/check");
       set({budget:res.data.budget})
     }catch(error){
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Failed to fetch budget");
     }},
 
 
