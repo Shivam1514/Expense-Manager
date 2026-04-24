@@ -31,6 +31,13 @@ Do not use markdown headers (# or ##) in your response, keep it as plain text pa
     res.status(200).json({ message: response.text });
   } catch (error) {
     console.error("Chatbot Error:", error);
-    res.status(500).json({ message: "Internal server error" });
+    
+    if (error.status === 503) {
+      return res.status(503).json({ 
+        message: "The financial advisor is currently experiencing high demand. Please try again in a few moments." 
+      });
+    }
+
+    res.status(500).json({ message: "Internal server error. Please try again later." });
   }
 };

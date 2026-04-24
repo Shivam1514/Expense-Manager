@@ -42,7 +42,12 @@ const Chatbot = () => {
       ]);
     } catch (error) {
       console.error("Chat error:", error);
-      toast.error("Failed to connect to the financial advisor.");
+      const errorMessage = error.response?.data?.message || "Failed to connect to the financial advisor.";
+      toast.error(errorMessage);
+      setMessages((prev) => [
+        ...prev,
+        { text: `⚠️ ${errorMessage}`, isBot: true },
+      ]);
     } finally {
       setIsLoading(false);
     }
